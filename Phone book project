@@ -1,0 +1,176 @@
+#include<iostream>
+#include<fstream>
+#include<string>
+#include<stdlib.h>
+#include<windows.h>
+using namespace std;
+int l=0;
+int n,c,b;
+char d,e=219;
+string name,email,adress,phone_number,a,s;
+void loading()
+{
+	cout<<"\n\n\n\t\t\t\t   Loading";
+	for(int i=0;i<=35;i++)
+	{
+	   cout<<e;
+	   if(i<10)
+	   Sleep(200);
+	   if(i>=10 && i<20)
+	   Sleep(150);
+	   if(i>=20 && i<=35)
+	   Sleep(100);
+    }
+    system("CLS");
+    cout<<"\n\n\n\t\t\t\t\t\t   Welcome !"<<endl;
+}
+void start()
+{
+    cout <<"\n\t\t\t\t  ========================================";
+    cout <<"\n\n\n\n\t\t\t\t    ======= Phone Book Application =======";
+    cout <<"\n\n\n\n\t\t\t\t  ========================================="<<endl<<endl;
+}
+int menu(int n)
+{
+    cout<<"\t .(1) Add contact"<<endl<<endl;
+    cout<<"\t .(2) All contacts"<<endl<<endl;
+    cout<<"\t .(3) Search contact"<<endl<<endl;
+    cout<<"\t .(4) Delete all contacts"<<endl<<endl;
+    cout<<"\t .(5) Exit"<<endl<<endl;
+    cout<<"\n\t => enter your choice:";
+    cin>>n;
+    return n;
+}
+void add_con()
+{
+    cout<<"Enter name: "<<endl;
+    cin.ignore();
+    getline(cin,name);
+    cout<<"Enter email:  "<<endl;
+    cin>>email;
+    cout<<"Enter phone number:  "<<endl;
+    cin>>phone_number;
+    cout<<"Enter address:  "<<endl;
+    cin.ignore();
+    getline(cin,adress);
+    ofstream
+    namefile("file.txt",ios::app);
+    namefile<<name<<endl;
+    namefile<<"email: "<<email<<endl;
+    namefile<<"phone number: "<<phone_number<<endl;
+    namefile<<"address: "<<adress<<endl;
+    namefile.close();
+}
+void alc()
+{
+    ifstream
+    rnamefile("file.txt");
+    while(getline(rnamefile,a))
+    {
+        cout<<a<<endl;
+    }
+    rnamefile.close();
+}
+void del_all()
+{
+    ofstream
+    namefile("file.txt");
+    namefile.open("file.txt",std::ofstream::out | std::ofstream::trunc);
+    namefile.close();
+}
+void search(string s)
+{
+	int j=0;
+    ifstream
+    rnamefile("file.txt");
+    while(getline(rnamefile,a))
+    {
+        if(a==s)
+        {
+            cout<<"name :"<<a<<endl;
+            while(getline(rnamefile,a),j<3)
+            {
+                cout<<a<<endl;
+                j++;    
+            }
+            break;
+        }
+        else
+        {
+        continue;
+        } 
+     }
+        if(j==0)
+        cout<<"\n\nRecord not found !";      
+}
+int main()
+{
+	if(l==0)
+	{
+	loading();
+    }
+    l++;
+    start();
+    c=menu(n);
+    switch(c)
+    {
+    case 1:
+    {
+        system("CLS");
+        cout<<endl<<"\n\n\t\t\t\t\t\t| CREATE NEW CONTACT |"<<endl<<endl;
+        add_con();
+        cout<<" \n\n\t\t *New Contact Added*"<<endl;
+        break;
+    }
+    case 2: {
+        system("CLS");
+        cout<<endl<<"\n\n\t\t\t\t\t\t| ALL CONTACTS ARE |"<<endl<<endl;
+        alc();
+        break;
+    }
+    case 3:
+    {
+        system("CLS");
+        cout<<endl<<"\n\n\t\t\t\t\t\t| SEARCH CONTACT |"<<endl<<endl;
+        cout<<"enter name to search contact: ";
+        cin>>s;
+        search(s);
+        break;
+    }
+    case 4:
+    {
+        system("CLS");
+        cout<<"\n\n\t\t\t\t\t\t| all contacts are deleted |"<<endl<<endl;
+        cout<<"\n\t\t File is Cleared !";
+        del_all();
+        break;
+    }
+    case 5:
+    {
+        system("CLS");
+        cout <<"\n\t\t\t\t  ========================================";
+        cout <<"\n\n\n\n\t\t\t\t\t    ======= Good Bye =======";
+        cout <<"\n\n\n\n\t\t\t\t  ========================================="<<endl<<endl;
+        exit(0);
+        break;
+    }
+    default:
+    {
+        system("CLS");
+        cout<<"\n\n\t\t wrong choice!";
+        break;
+    }
+    }
+    cout<<endl<<"\n\n\n\t\tDo you wanna continue?(Y/N):";
+    cin>>d;
+    if(d =='y'||d =='Y')
+    {
+        system("CLS");
+        main();
+    }
+    else if(d=='N'||d=='n')
+    {
+        exit(0);
+    }
+}
+    
